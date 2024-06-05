@@ -9,4 +9,10 @@ export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
   }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+  }
 `;

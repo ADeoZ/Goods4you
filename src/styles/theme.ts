@@ -10,6 +10,7 @@ export const mainTheme = {
     },
     inputs: {
       bg: "#F6F6F6",
+      hover: "#C4C4C4",
     },
     text: {
       light: "#FFFFFF",
@@ -18,4 +19,7 @@ export const mainTheme = {
       grayDark: "#C4C4C4",
     },
   },
-};
+  width: {
+    max: "1180px",
+  },
+} as const;
