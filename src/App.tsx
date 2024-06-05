@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GlobalStyle } from "./styles/GlobalStyle";
+import Star from "@assets/svg/star.svg?raw";
 
 const P = styled.p`
   font-size: 2.4rem;
@@ -8,8 +8,8 @@ const P = styled.p`
 export const App = () => {
   return (
     <>
-      <GlobalStyle />
-      <P>Hello!</P>
+      <P>My cart!</P>
+      <div dangerouslySetInnerHTML={{ __html: Star }} />
     </>
   );
 };
