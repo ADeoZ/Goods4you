@@ -1,8 +1,14 @@
+import { ForwardedRef, forwardRef } from "react";
 import { StyledTitle } from "./Title.styles";
 import { TitleProps } from "./Title.types";
 
-export const Title = ({ id, as, children, color = "dark" }: TitleProps) => (
-  <StyledTitle id={id} as={as} $dark={color === "dark"}>
-    {children}
-  </StyledTitle>
-);
+export const Title = forwardRef(function Title(
+  { id, as, children, color = "dark" }: TitleProps,
+  ref: ForwardedRef<HTMLElement>
+) {
+  return (
+    <StyledTitle id={id} as={as} $dark={color === "dark"} ref={ref}>
+      {children}
+    </StyledTitle>
+  );
+});
