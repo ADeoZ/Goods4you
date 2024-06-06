@@ -2,7 +2,7 @@ import { StyledItemImageWrapper, StyledItemImage } from "./CatalogItemImage.styl
 import { CatalogItemImageProps } from "./CatalogItemImage.types";
 
 export const CatalogItemImage = ({ link, image }: CatalogItemImageProps) => (
-  <StyledItemImageWrapper href={link} tabIndex={-1}>
+  <StyledItemImageWrapper to={link} tabIndex={-1}>
     <picture>
       <source srcSet={image.srcSmall} media="(max-width: 400px)" />
       <StyledItemImage src={image.src} alt={image.alt} />

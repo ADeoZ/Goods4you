@@ -1,36 +1,51 @@
-import { Title } from "@/components/entities/Title";
-import { Header } from "@components/widgets/Header";
-import { HeaderIntro } from "@components/widgets/HeaderIntro";
-import { SearchBar } from "@components/widgets/SearchBar";
-import { BottomWrapper } from "./components/widgets/BottomWrapper";
-import { Catalog } from "./components/widgets/Catalog";
-import { FAQ } from "./components/widgets/FAQ";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { CatalogPage } from "./components/pages/CatalogPage";
+import { ThemeProvider } from "styled-components";
+import { mainTheme, GlobalStyle } from "./styles";
+import { Header } from "./components/widgets/Header";
 import { Footer } from "./components/widgets/Footer";
 import { MainWrapper } from "./components/widgets/MainWrapper";
 
-// сделать ссылки
+// сделать докрутку до якорей
 // обернуть img в picture
 // добавить gh-pages
 
+const PageLayout = () => (
+  <>
+    <Header />
+    <MainWrapper>
+      <Outlet />
+    </MainWrapper>
+    <Footer />
+  </>
+);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <CatalogPage />,
+    errorElement: <div>Ошибка!</div>,
+  },
+  {
+    element: <PageLayout />,
+    children: [
+      {
+        path: "sneakers/:sneakersId",
+        element: <div>Страница товара</div>,
+      },
+      {
+        path: "cart",
+        element: <div>Корзина</div>,
+      },
+    ],
+  },
+]);
+
 export const App = () => {
   return (
-    <>
-      <Header>
-        <HeaderIntro
-          title="Any products from famous brands with worldwide delivery"
-          description="We sell smartphones, laptops, clothes, shoes and many other products at low prices"
-          buttonLabel="Go to shopping"
-        />
-      </Header>
-      <MainWrapper>
-        <Title id="Catalog">Catalog</Title>
-        <SearchBar />
-        <Catalog />
-      </MainWrapper>
-      <BottomWrapper>
-        <FAQ />
-      </BottomWrapper>
-      <Footer />
-    </>
+    <ThemeProvider theme={mainTheme}>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   );
 };

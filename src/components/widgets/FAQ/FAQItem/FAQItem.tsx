@@ -10,8 +10,8 @@ import {
 } from "./FAQItem.styles";
 import { FAQItemProps } from "./FAQItem.types";
 
-export const FAQItem = ({ id, question, answer }: FAQItemProps) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
+export const FAQItem = ({ id, question, answer, initialExpanded = false }: FAQItemProps) => {
+  const [expanded, setExpanded] = useState<boolean>(initialExpanded);
 
   const expandHandler = () => setExpanded((prev) => !prev);
 

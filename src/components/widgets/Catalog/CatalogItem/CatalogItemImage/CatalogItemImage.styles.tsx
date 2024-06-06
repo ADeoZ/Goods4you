@@ -1,8 +1,9 @@
+import { StyledItemTitle } from "@/components/widgets/ItemDescription/ItemDescription.styles";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledItemContent } from "../CatalogItem.styles";
-import { StyledItemTitle } from "@/components/widgets/ItemDescription/ItemDescription.styles";
 
-export const StyledItemImageWrapper = styled.a`
+export const StyledItemImageWrapper = styled(Link)`
   display: block;
   height: 293px;
   overflow: auto;

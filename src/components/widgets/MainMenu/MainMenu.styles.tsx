@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const StyledMenu = styled.ul`
@@ -7,7 +8,7 @@ export const StyledMenu = styled.ul`
   gap: 3.35rem;
 `;
 
-export const StyledMenuLink = styled.a`
+export const StyledMenuLink = styled(Link)`
   display: flex;
   font-size: 1.4rem;
   font-weight: 600;

@@ -10,14 +10,14 @@ export const MainMenu = ({ showCart = false }: MainMenuProps) => {
     <nav>
       <StyledMenu>
         <li>
-          <StyledMenuLink href="#Catalog">Catalog</StyledMenuLink>
+          <StyledMenuLink to="/#Catalog">Catalog</StyledMenuLink>
         </li>
         <li>
-          <StyledMenuLink href="#FAQ">FAQ</StyledMenuLink>
+          <StyledMenuLink to="/#FAQ">FAQ</StyledMenuLink>
         </li>
         {showCart && (
           <li>
-            <StyledMenuLink href="#" aria-label={`${cartItemsCount} item in Cart`}>
+            <StyledMenuLink to="/cart" aria-label={`${cartItemsCount} item in Cart`}>
               Cart
               <MenuCart count={cartItemsCount} />
             </StyledMenuLink>

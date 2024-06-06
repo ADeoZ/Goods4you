@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const StyledItemContentWrapper = styled.div`
@@ -7,7 +8,7 @@ export const StyledItemContentWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const StyledItemTitle = styled.a`
+export const StyledItemTitle = styled(Link)`
   font-size: 1.6rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text.dark};
