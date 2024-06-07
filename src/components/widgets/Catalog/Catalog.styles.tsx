@@ -21,9 +21,4 @@ export const StyledCatalogShowMore = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 60px;
-  padding-right: 59px;
-
-  @media (max-width: 1000px) {
-    padding: 0;
-  }
 `;

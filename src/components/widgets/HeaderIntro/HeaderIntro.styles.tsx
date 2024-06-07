@@ -5,6 +5,7 @@ export const StyledIntro = styled.section`
   max-width: ${({ theme }) => theme.width.max};
   position: relative;
   padding: 101px 0 93px;
+  border-top: solid 1px rgb(255, 255, 255, 0.5);
 
   @media (max-width: 600px) {
     padding: 50px 0 30px;

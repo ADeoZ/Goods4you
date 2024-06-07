@@ -1,12 +1,3 @@
-export type CatalogItemProps = {
-  id: string;
-  title: string;
-  price: number;
-  image: CatalogItemImage;
-};
+import { CatalogItem } from "@/models";
 
-export type CatalogItemImage = {
-  src: string;
-  srcSmall: string;
-  alt: string;
-};
+export type CatalogItemProps = CatalogItem;

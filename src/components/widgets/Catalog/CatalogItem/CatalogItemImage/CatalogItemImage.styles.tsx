@@ -5,7 +5,6 @@ import { StyledItemContent } from "../CatalogItem.styles";
 
 export const StyledItemImageWrapper = styled(Link)`
   display: block;
-  height: 293px;
   overflow: auto;
   position: relative;
 

@@ -4,7 +4,7 @@ import { StyledCatalogItem, StyledItemContent, StyledItemControllers } from "./C
 import { CatalogItemProps } from "./CatalogItem.types";
 import { CatalogItemImage } from "./CatalogItemImage";
 import { useCallback, useState } from "react";
-import { ItemCountControllers } from "./ItemCountControllers";
+import { ItemCountControllers } from "../../../entities/ItemCountControllers";
 
 export const CatalogItem = (props: CatalogItemProps) => {
   const { id, title, price, image } = props;

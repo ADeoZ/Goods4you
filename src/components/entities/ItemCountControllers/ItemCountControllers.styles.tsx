@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledItemValue = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 62px;
   height: 48px;
   padding: 15px 0;
