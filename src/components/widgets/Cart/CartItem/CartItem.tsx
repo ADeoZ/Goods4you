@@ -21,7 +21,7 @@ export const CartItem = memo(function CartItem({
   increaseHandler,
   deleteHandler,
 }: CartItemProps) {
-  const link = `sneakers/${id}`;
+  const link = `/sneakers/${id}`;
   return (
     <StyledCartItem>
       <StyledCartItemLabel>

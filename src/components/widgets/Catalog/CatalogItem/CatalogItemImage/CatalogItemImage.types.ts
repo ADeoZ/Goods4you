@@ -1,3 +1,3 @@
-import { CatalogItemImage } from "../CatalogItem.types";
+import { CatalogItem } from "@/models";
 
-export type CatalogItemImageProps = { image: CatalogItemImage; link: string };
+export type CatalogItemImageProps = { image: CatalogItem["image"]; link: string };
