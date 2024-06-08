@@ -1,5 +1,5 @@
 import { BuyButton } from "@/components/entities/SecondaryButton";
-import { ItemDescription } from "@/components/widgets/ItemDescription";
+import { ItemDescription } from "@/components/entities/ItemDescription";
 import { StyledCatalogItem, StyledItemContent, StyledItemControllers } from "./CatalogItem.styles";
 import { CatalogItemProps } from "./CatalogItem.types";
 import { CatalogItemImage } from "./CatalogItemImage";

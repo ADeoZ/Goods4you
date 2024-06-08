@@ -1,1 +1,1 @@
-export { getCartItemsCount, getCatalogList, getFaqList } from "./mocks";
+export { getCartItemsCount, getCatalogList, getFaqList, getProductDetails, getCart } from "./mocks";

@@ -1,4 +1,5 @@
-import { StyledItemTitle } from "@/components/widgets/ItemDescription/ItemDescription.styles";
+import { StyledImg } from "@/components/entities/Picture";
+import { StyledItemTitle } from "@/components/entities/ItemDescription/ItemDescription.styles";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledItemContent } from "../CatalogItem.styles";
@@ -28,11 +29,8 @@ export const StyledItemImageWrapper = styled(Link)`
   &:hover + ${StyledItemContent} ${StyledItemTitle} {
     text-decoration: underline;
   }
-`;
 
-export const StyledItemImage = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
-  object-fit: cover;
+  & ${StyledImg} {
+    border-radius: 4px;
+  }
 `;

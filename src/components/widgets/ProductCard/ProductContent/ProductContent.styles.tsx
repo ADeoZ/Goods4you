@@ -1,5 +1,3 @@
-import { StyledItemValue } from "@/components/entities/ItemCountControllers/ItemCountControllers.styles";
-import { MinusButton, PlusButton } from "@/components/entities/SecondaryButton";
 import styled from "styled-components";
 
 export const StyledProductContentWrapper = styled.div`
@@ -38,14 +36,4 @@ export const StyledProductContent = styled.div`
 
 export const StyledProductControllers = styled.div`
   display: flex;
-
-  & ${MinusButton}, & ${PlusButton} {
-    width: 80px;
-    height: 67px;
-  }
-
-  & ${StyledItemValue} {
-    width: 106px;
-    height: 67px;
-  }
 `;

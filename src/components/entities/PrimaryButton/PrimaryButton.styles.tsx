@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const StyledButton = styled.button<{ $disabled?: boolean }>`
-  width: 100%;
-  max-width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,6 +22,8 @@ export const StyledButton = styled.button<{ $disabled?: boolean }>`
 `;
 
 export const StyledPrimaryButton = styled(StyledButton)`
+  width: 100%;
+  max-width: 200px;
   height: 67px;
   padding: 2.2rem 4.65rem;
 `;

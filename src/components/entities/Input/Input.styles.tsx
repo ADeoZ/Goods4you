@@ -18,6 +18,6 @@ export const StyledInput = styled.input`
   }
 
   &:focus {
-    outline: solid 2px #000;
+    outline: solid 2px ${({ theme }) => theme.colors.borders.black};
   }
 `;

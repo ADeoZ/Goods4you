@@ -11,12 +11,6 @@ export const StyledProductSelectedImageWrapper = styled.div`
   position: relative;
 `;
 
-export const StyledProductSelectedImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-`;
-
 export const StyledProductPreviewImagesController = styled.div`
   display: grid;
   grid-auto-flow: column;

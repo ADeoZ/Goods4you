@@ -8,5 +8,5 @@ export const StyledFaqSection = styled.section`
 
 export const StyledFaqList = styled.ul`
   margin-top: 26px;
-  border-top: 1px solid #fff;
+  border-top: 1px solid ${({ theme }) => theme.colors.borders.white};
 `;

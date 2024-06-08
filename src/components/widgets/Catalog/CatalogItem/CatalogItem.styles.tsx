@@ -14,4 +14,5 @@ export const StyledItemContent = styled.div`
 
 export const StyledItemControllers = styled.div`
   display: flex;
+  height: 48px;
 `;

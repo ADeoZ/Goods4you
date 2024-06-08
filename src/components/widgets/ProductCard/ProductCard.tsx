@@ -2,7 +2,7 @@ import { Title } from "@/components/entities/Title";
 import { StyledProductCard, StyledProductCardWrapper } from "./ProductCard.styles";
 import { ProductCardImages } from "./ProductCardImages";
 import { ProductContent } from "./ProductContent";
-import { getProductDetails } from "@/store/mocks";
+import { getProductDetails } from "@/store";
 
 export const ProductCard = () => {
   const product = getProductDetails();

@@ -13,13 +13,13 @@ export const StyledProductPreviewImageWrapper = styled.button<{ $selected?: bool
   }
 
   &:focus-visible {
-    outline: 2px solid #000;
+    outline: 2px solid ${({ theme }) => theme.colors.borders.black};
   }
 
   ${({ $selected, theme }) =>
     $selected &&
     `
-      outline: 3px solid ${theme.colors.text.grayDark};
+      outline: 3px solid ${theme.colors.borders.grayDark};
       outline-offset: -3px;
     `}
 `;

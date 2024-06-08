@@ -52,6 +52,7 @@ export const ProductContent = ({
             currentCount={countInCart}
             decreaseCountHandler={decreaseCountHandler}
             increaseCountHandler={increaseCountHandler}
+            largeSize
           />
         )}
       </StyledProductControllers>

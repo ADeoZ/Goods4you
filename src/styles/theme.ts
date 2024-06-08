@@ -18,6 +18,13 @@ export const mainTheme = {
       grayLight: "#B2B5BB",
       grayDark: "#C4C4C4",
     },
+    borders: {
+      gray: "#D9D9D9",
+      grayLight: "#B2B5BB",
+      grayDark: "#C4C4C4",
+      black: "#000",
+      white: "#FFF",
+    },
   },
   width: {
     max: "1180px",

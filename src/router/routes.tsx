@@ -1,3 +1,4 @@
+import { CartPage } from "@/components/pages/CartPage";
 import { CatalogPage } from "@/components/pages/CatalogPage";
 import { Page404 } from "@/components/pages/Page404";
 import { PageLayout } from "@/components/pages/PageLayout";
@@ -19,7 +20,7 @@ export const routes: RouteObject[] = [
       },
       {
         path: "cart",
-        element: <div>Корзина</div>,
+        element: <CartPage />,
       },
     ],
   },

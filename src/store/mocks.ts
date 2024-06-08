@@ -1,6 +1,5 @@
 import { CatalogItem, FaqItem, ListResponse, Product } from "@/models";
-
-export const getCartItemsCount = () => 1;
+import { CartList } from "@/models/cart";
 
 const catalogItem: CatalogItem = {
   id: "Product",
@@ -9,7 +8,7 @@ const catalogItem: CatalogItem = {
   image: {
     src: "/images/sneak1.png",
     srcSmall: "/images/sneak1_small.png",
-    alt: "Image of Essence Mascara Lash Princess, pink",
+    alt: "Sneakers Essence Mascara Lash Princess, pink",
   },
 };
 
@@ -52,7 +51,7 @@ export const getProductDetails = (): Product => ({
     mainImage: {
       src: "/images/sneak1.png",
       srcSmall: "/images/sneak1_small.png",
-      alt: "Image of Essence Mascara Lash Princess, pink",
+      alt: "Sneakers Puma Force 1 Shadow, white",
     },
     detailsImages: new Array(6)
       .fill({
@@ -65,3 +64,21 @@ export const getProductDetails = (): Product => ({
       .map((item, index) => ({ ...item, id: `${index}` })),
   },
 });
+
+export const getCartItemsCount = () => 1;
+
+export const getCart = (): CartList =>
+  new Array(3)
+    .fill({
+      id: "Product",
+      title: "Essence Mascara Lash Princess",
+      price: 110,
+      discount: 10,
+      count: 1,
+      image: {
+        src: "/images/sneak2.png",
+        srcSmall: "/images/sneak2_small.png",
+        alt: "Sneakers Essence Mascara Lash Princess, white",
+      },
+    })
+    .map((item, index) => ({ ...item, id: `${item.id} ${index}` }));

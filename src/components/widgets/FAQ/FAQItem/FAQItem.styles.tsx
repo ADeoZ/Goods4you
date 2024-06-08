@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const StyledFaqItem = styled.li`
   position: relative;
   padding: 30px 80px 4px 0;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borders.white};
   color: ${({ theme }) => theme.colors.text.light};
 `;
 

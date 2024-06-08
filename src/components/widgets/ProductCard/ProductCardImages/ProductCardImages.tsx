@@ -1,10 +1,10 @@
+import { Picture } from "@/components/entities/Picture";
 import { ProductDetailsImage } from "@/models";
 import { useCallback, useState } from "react";
 import { ProductCardImagePreview } from "./ProductCardImagePreview";
 import {
   StyledProductImages,
   StyledProductPreviewImagesController,
-  StyledProductSelectedImage,
   StyledProductSelectedImageWrapper,
 } from "./ProductCardImages.styles";
 import { ProductCardImagesProps } from "./ProductCardImages.types";
@@ -17,10 +17,7 @@ export const ProductCardImages = ({ images }: ProductCardImagesProps) => {
   return (
     <StyledProductImages>
       <StyledProductSelectedImageWrapper id="selected-image">
-        <picture>
-          <source srcSet={selectedImage.fullSrcSmall} media="(max-width: 400px)" />
-          <StyledProductSelectedImage src={selectedImage.fullSrc} alt={selectedImage.alt} />
-        </picture>
+        <Picture src={selectedImage.fullSrc} srcSmall={selectedImage.fullSrcSmall} alt={selectedImage.alt} />
       </StyledProductSelectedImageWrapper>
       <StyledProductPreviewImagesController role="listbox">
         {images.map((image) => (
