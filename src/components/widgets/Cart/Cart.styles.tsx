@@ -4,12 +4,12 @@ import styled from "styled-components";
 
 export const StyledCart = styled.section`
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   gap: 20px;
   padding: 56px 5px 247px 0;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1180px) {
+    flex-wrap: wrap;
     justify-content: center;
     padding-bottom: 100px;
   }

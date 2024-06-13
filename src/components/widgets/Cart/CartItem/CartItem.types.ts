@@ -1,9 +1,7 @@
-import { CartList } from "@/models/cart";
+import { CartProduct } from "@/models/cart";
 
-type CartItem = CartList[number];
-
-export type CartItemProps = CartItem & {
-  decreaseHandler: (id: CartItem["id"]) => void;
-  increaseHandler: (id: CartItem["id"]) => void;
-  deleteHandler: (id: CartItem["id"]) => void;
+export type CartItemProps = CartProduct & {
+  decreaseHandler: (id: CartProduct["id"]) => void;
+  increaseHandler: (id: CartProduct["id"]) => void;
+  deleteHandler: (id: CartProduct["id"]) => void;
 };

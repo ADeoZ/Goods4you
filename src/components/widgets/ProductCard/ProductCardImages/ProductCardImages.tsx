@@ -1,30 +1,31 @@
-import { Picture } from "@/components/entities/Picture";
-import { ProductDetailsImage } from "@/models";
+import { ProductImage } from "@/models";
 import { useCallback, useState } from "react";
 import { ProductCardImagePreview } from "./ProductCardImagePreview";
 import {
   StyledProductImages,
   StyledProductPreviewImagesController,
+  StyledProductSelectedImage,
   StyledProductSelectedImageWrapper,
 } from "./ProductCardImages.styles";
 import { ProductCardImagesProps } from "./ProductCardImages.types";
 
-export const ProductCardImages = ({ images }: ProductCardImagesProps) => {
-  const [selectedImage, setSelectedImage] = useState<ProductDetailsImage>(images[0]);
+export const ProductCardImages = ({ images, title }: ProductCardImagesProps) => {
+  const [selectedImage, setSelectedImage] = useState<ProductImage>(images[0]);
 
-  const selectHandler = useCallback((image: ProductDetailsImage) => setSelectedImage(image), []);
+  const selectHandler = useCallback((image: ProductImage) => setSelectedImage(image), []);
 
   return (
     <StyledProductImages>
       <StyledProductSelectedImageWrapper id="selected-image">
-        <Picture src={selectedImage.fullSrc} srcSmall={selectedImage.fullSrcSmall} alt={selectedImage.alt} />
+        <StyledProductSelectedImage src={selectedImage} alt={title} />
       </StyledProductSelectedImageWrapper>
       <StyledProductPreviewImagesController role="listbox">
         {images.map((image) => (
           <ProductCardImagePreview
-            key={image.id}
-            {...image}
-            selected={selectedImage.id === image.id}
+            key={image}
+            src={image}
+            alt={`Preview for ${title}`}
+            selected={selectedImage === image}
             selectHandler={selectHandler}
           />
         ))}

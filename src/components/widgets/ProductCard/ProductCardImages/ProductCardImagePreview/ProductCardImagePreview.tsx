@@ -8,18 +8,18 @@ import { ProductCardImagePreviewProps } from "./ProductCardImagePreview.types";
 export const ProductCardImagePreview = memo(function ProductCardImagePreview(
   props: ProductCardImagePreviewProps
 ) {
-  const { previewSrc, alt, selectHandler, selected = false } = props;
-  const clickHandler = () => selectHandler(props);
+  const { src, selectHandler, alt, selected = false } = props;
+  const clickHandler = () => selectHandler(src);
 
   return (
     <StyledProductPreviewImageWrapper
       aria-controls="selected-image"
       aria-selected="true"
-      aria-label={`Select Preview for ${alt}`}
+      aria-label={alt}
       $selected={selected}
       onClick={clickHandler}
     >
-      <StyledProductPreviewImage src={previewSrc} alt={`Preview for ${alt}`} />
+      <StyledProductPreviewImage src={src} alt={alt} />
     </StyledProductPreviewImageWrapper>
   );
 });

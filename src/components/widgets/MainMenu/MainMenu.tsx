@@ -1,10 +1,12 @@
-import { getCartItemsCount } from "@/store";
+import { useGetCartsByUserQuery } from "@/store/api/cartApi";
 import { StyledMenu, StyledMenuLink } from "./MainMenu.styles";
 import { MainMenuProps } from "./MainMenu.types";
 import { MenuCart } from "./MenuCart/MenuCart";
 
+const userId = import.meta.env.VITE_USER_ID;
+
 export const MainMenu = ({ showCart = false }: MainMenuProps) => {
-  const cartItemsCount = getCartItemsCount();
+  const { data: cartList } = useGetCartsByUserQuery(userId);
 
   return (
     <nav>
@@ -17,9 +19,9 @@ export const MainMenu = ({ showCart = false }: MainMenuProps) => {
         </li>
         {showCart && (
           <li>
-            <StyledMenuLink to="/cart" aria-label={`${cartItemsCount} item in Cart`}>
+            <StyledMenuLink to="/cart" aria-label={`${cartList?.totalQuantity ?? 0} item in Cart`}>
               Cart
-              <MenuCart count={cartItemsCount} />
+              <MenuCart count={cartList?.totalQuantity} />
             </StyledMenuLink>
           </li>
         )}

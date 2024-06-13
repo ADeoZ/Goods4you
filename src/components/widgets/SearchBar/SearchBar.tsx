@@ -1,24 +1,26 @@
 import { PrimaryButton } from "@/components/entities/PrimaryButton";
-import { StyledSearchBar, StyledSearchInput } from "./SearchBar.styles";
 import { useState } from "react";
+import { StyledSearchBar, StyledSearchInput } from "./SearchBar.styles";
+import { SearchBarProps } from "./SearchBar.types";
 
-export const SearchBar = () => {
+export const SearchBar = ({ searchHandler }: SearchBarProps) => {
   const [searchText, setSearchText] = useState<string>("");
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
+    searchHandler(event.target.value);
   };
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(`Search by "${searchText}"`);
+    searchHandler(searchText);
   };
 
   return (
     <section>
       <StyledSearchBar onSubmit={submitHandler}>
         <StyledSearchInput
-          onChange={changeHandler}
+          onInput={changeHandler}
           value={searchText}
           placeholder="Search by title"
           aria-label="Search in catalog by title"

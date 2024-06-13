@@ -1,4 +1,6 @@
-import { getCart } from "@/store";
+import { Product } from "@/models";
+import { useGetCartsByUserQuery } from "@/store/api/cartApi";
+import { useCallback } from "react";
 import {
   StyledCart,
   StyledCartList,
@@ -8,72 +10,43 @@ import {
   StyledFieldPriceWithDiscount,
 } from "./Cart.styles";
 import { CartItem } from "./CartItem";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { CartList } from "@/models/cart";
-import { Product } from "@/models";
+import { LoadingWrapper } from "../LoadingWrapper";
+
+const userId = import.meta.env.VITE_USER_ID;
 
 export const Cart = () => {
-  const [cartList, setCartList] = useState<CartList>([]);
+  const { data: cartList, error, isLoading } = useGetCartsByUserQuery(userId);
 
-  useEffect(() => {
-    const cart = getCart();
-    setCartList(cart);
-  }, []);
+  const decreaseHandler = useCallback((itemId: Product["id"]) => console.log("decrease", itemId), []);
 
-  const price = useMemo(
-    () =>
-      cartList.reduce(
-        (sum, item) => ({
-          ...sum,
-          total: sum.total + item.price * item.count,
-          withDiscount: sum.withDiscount + item.price * (1 - item.discount / 100) * item.count,
-        }),
-        { total: 0, withDiscount: 0 }
-      ),
-    [cartList]
-  );
+  const increaseHandler = useCallback((itemId: Product["id"]) => console.log("increase", itemId), []);
 
-  const decreaseHandler = useCallback(
-    (itemId: Product["id"]) =>
-      setCartList((prev) =>
-        prev
-          .map((item) => (item.id === itemId ? { ...item, count: item.count - 1 } : item))
-          .filter(({ count }) => count > 0)
-      ),
-    []
-  );
-
-  const increaseHandler = useCallback(
-    (itemId: Product["id"]) =>
-      setCartList((prev) =>
-        prev.map((item) => (item.id === itemId ? { ...item, count: item.count + 1 } : item))
-      ),
-    []
-  );
-
-  const deleteHandler = useCallback(
-    (itemId: Product["id"]) => setCartList((prev) => prev.filter(({ id }) => id !== itemId)),
-    []
-  );
+  const deleteHandler = useCallback((itemId: Product["id"]) => console.log("delete", itemId), []);
 
   return (
     <StyledCart>
       <StyledCartList>
-        {cartList.length > 0 &&
-          cartList.map((cartItem) => (
-            <CartItem
-              key={cartItem.id}
-              {...cartItem}
-              decreaseHandler={decreaseHandler}
-              increaseHandler={increaseHandler}
-              deleteHandler={deleteHandler}
-            />
-          ))}
+        <LoadingWrapper isLoading={isLoading} error={error}>
+          {cartList?.products &&
+            cartList?.products.length > 0 &&
+            cartList.products.map((cartItem) => (
+              <CartItem
+                key={cartItem.id}
+                {...cartItem}
+                decreaseHandler={decreaseHandler}
+                increaseHandler={increaseHandler}
+                deleteHandler={deleteHandler}
+              />
+            ))}
+        </LoadingWrapper>
       </StyledCartList>
       <StyledCartTotal>
-        <StyledFieldCount label="Total count:" value={`${cartList.length}`} />
-        <StyledFieldPrice label="Total price:" value={`${price.total}$`} />
-        <StyledFieldPriceWithDiscount label="Total price with discount:" value={`${price.withDiscount}$`} />
+        <StyledFieldCount label="Total count:" value={`${cartList?.totalQuantity ?? 0}`} />
+        <StyledFieldPrice label="Total price:" value={`${cartList?.total ?? 0}$`} />
+        <StyledFieldPriceWithDiscount
+          label="Total price with discount:"
+          value={`${cartList?.discountedTotal ?? 0}$`}
+        />
       </StyledCartTotal>
     </StyledCart>
   );

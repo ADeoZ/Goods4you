@@ -15,24 +15,25 @@ export const CartItem = memo(function CartItem({
   id,
   title,
   price,
-  image,
-  count,
+  thumbnail,
+  quantity,
   decreaseHandler,
   increaseHandler,
   deleteHandler,
 }: CartItemProps) {
-  const link = `/sneakers/${id}`;
+  const link = `/product/${id}`;
+
   return (
     <StyledCartItem>
       <StyledCartItemLabel>
         <StyledCartItemImageWrapper to={link} tabIndex={-1}>
-          <StyledCartItemImage src={image.srcSmall} alt={image.alt} />
+          <StyledCartItemImage src={thumbnail} alt={title} />
         </StyledCartItemImageWrapper>
         <ItemDescription link={link} title={title} price={price} />
       </StyledCartItemLabel>
       <StyledCartControllers>
         <ItemCountControllers
-          currentCount={count}
+          currentCount={quantity}
           decreaseCountHandler={() => decreaseHandler(id)}
           increaseCountHandler={() => increaseHandler(id)}
         />

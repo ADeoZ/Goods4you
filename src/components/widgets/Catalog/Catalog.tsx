@@ -1,23 +1,38 @@
 import { PrimaryButton } from "@/components/entities/PrimaryButton";
 import { Title } from "@/components/entities/Title";
 import { useScrollIntoView } from "@/components/hooks";
-import { getCatalogList } from "@/store";
+import { useDebounce, useGetProductsInCart } from "@/hooks";
+import { useGetProductsWithFilterQuery } from "@/store/api/productsApi";
 import { useRef, useState } from "react";
+import { LoadingWrapper } from "../LoadingWrapper";
 import { SearchBar } from "../SearchBar";
 import { StyledCatalog, StyledCatalogList, StyledCatalogShowMore } from "./Catalog.styles";
-import { CatalogItem } from "./CatalogItem/CatalogItem";
+import { CatalogItem } from "./CatalogItem";
+
+const limit = import.meta.env.VITE_CATALOG_LIMIT;
 
 export const Catalog = () => {
   const [page, setPage] = useState<number>(0);
+  const [search, setSearch] = useState<string>("");
+  const debouncedSearch = useDebounce(search, 500);
+
+  const {
+    data: catalogData,
+    isLoading,
+    error,
+  } = useGetProductsWithFilterQuery({ search: debouncedSearch, skip: page * limit, limit });
+  const productsInCart = useGetProductsInCart();
 
   const catalogRef = useRef<HTMLElement>(null);
   useScrollIntoView(catalogRef);
 
-  const catalogList = getCatalogList(page, 9);
+  const searchSubmitHandler = (inputValue: string) => {
+    setSearch(inputValue);
+    setPage(0);
+  };
 
   const showMoreHandler = () => {
-    setPage(0);
-    console.log("more items!");
+    setPage((prev) => prev + 1);
   };
 
   return (
@@ -25,17 +40,21 @@ export const Catalog = () => {
       <Title id="Catalog" ref={catalogRef}>
         Catalog
       </Title>
-      <SearchBar />
-      <StyledCatalog>
-        <StyledCatalogList>
-          {catalogList.list.map((item) => (
-            <CatalogItem key={item.id} {...item} />
-          ))}
-        </StyledCatalogList>
-        <StyledCatalogShowMore>
-          <PrimaryButton onClick={showMoreHandler}>Show more</PrimaryButton>
-        </StyledCatalogShowMore>
-      </StyledCatalog>
+      <SearchBar searchHandler={searchSubmitHandler} />
+      <LoadingWrapper isLoading={isLoading} error={error} isEmpty={catalogData?.total === 0}>
+        <StyledCatalog>
+          <StyledCatalogList>
+            {catalogData?.products.map((item) => (
+              <CatalogItem key={item.id} {...item} quantityInCart={productsInCart.get(item.id) ?? 0} />
+            ))}
+          </StyledCatalogList>
+          {catalogData && (page + 1) * limit <= catalogData.total && (
+            <StyledCatalogShowMore>
+              <PrimaryButton onClick={showMoreHandler}>Show more</PrimaryButton>
+            </StyledCatalogShowMore>
+          )}
+        </StyledCatalog>
+      </LoadingWrapper>
     </>
   );
 };

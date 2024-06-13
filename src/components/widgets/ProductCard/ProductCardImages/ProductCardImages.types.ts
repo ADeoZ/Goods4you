@@ -1,3 +1,3 @@
-import { ProductDetailsImage } from "@/models";
+import { Product } from "@/models";
 
-export type ProductCardImagesProps = { images: ProductDetailsImage[] };
+export type ProductCardImagesProps = Pick<Product, "images" | "title">;
