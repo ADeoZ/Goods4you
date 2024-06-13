@@ -1,1 +1,2 @@
-export { getCartItemsCount, getCatalogList, getFaqList, getProductDetails, getCart } from "./mocks";
+export { store } from "./store";
+export { useAppSelector, useAppDispatch } from "./hooks";
