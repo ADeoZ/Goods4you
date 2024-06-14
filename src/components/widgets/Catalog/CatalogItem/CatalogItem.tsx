@@ -1,17 +1,20 @@
 import { ItemDescription } from "@/components/entities/ItemDescription";
 import { BuyButton } from "@/components/entities/SecondaryButton";
+import { useAppDispatch } from "@/store";
+import { addItem, decreaseQuantity, increaseQuantity } from "@/store/slices/cartSlice";
 import { ItemCountControllers } from "@components/entities/ItemCountControllers";
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { StyledCatalogItem, StyledItemContent, StyledItemControllers } from "./CatalogItem.styles";
 import { CatalogItemProps } from "./CatalogItem.types";
 import { CatalogItemImage } from "./CatalogItemImage";
 
 export const CatalogItem = memo(function CatalogItem(props: CatalogItemProps) {
   const { id, title, price, thumbnail, quantityInCart = 0 } = props;
+  const dispatch = useAppDispatch();
 
-  const buyHandler = useCallback(() => console.log("buyItem"), []);
-  const decreaseCountHandler = useCallback(() => console.log("decreaseCount"), []);
-  const increaseCountHandler = useCallback(() => console.log("increaseCount"), []);
+  const buyHandler = () => dispatch(addItem(id));
+  const decreaseCountHandler = () => dispatch(decreaseQuantity(id));
+  const increaseCountHandler = () => dispatch(increaseQuantity(id));
 
   const link = `/product/${id}`;
 

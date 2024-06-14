@@ -1,14 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { productsApi } from "./api/productsApi";
-import { cartApi } from "./api/cartApi";
-import faqReducer from "./slices/faqSlice";
 import { useSelector } from "react-redux";
+import { cartApi } from "./api/cartApi";
+import { productsApi } from "./api/productsApi";
+import cartReducer from "./slices/cartSlice";
+import faqReducer from "./slices/faqSlice";
 
 export const store = configureStore({
   reducer: {
     [productsApi.reducerPath]: productsApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
     faq: faqReducer,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware, cartApi.middleware),

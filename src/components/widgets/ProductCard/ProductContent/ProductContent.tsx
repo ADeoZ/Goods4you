@@ -3,7 +3,8 @@ import { ItemCountControllers } from "@/components/entities/ItemCountControllers
 import { PrimaryButton } from "@/components/entities/PrimaryButton";
 import { Rating } from "@/components/entities/Rating";
 import { useGetProductsInCart } from "@/hooks";
-import { useCallback } from "react";
+import { useAppDispatch } from "@/store";
+import { addItem, decreaseQuantity, increaseQuantity } from "@/store/slices/cartSlice";
 import {
   StyledProductContent,
   StyledProductContentWrapper,
@@ -28,9 +29,11 @@ export const ProductContent = ({
   const productsInCart = useGetProductsInCart();
   const countInCart = productsInCart.get(id) ?? 0;
 
-  const buyHandler = useCallback(() => console.log("buyItem"), []);
-  const decreaseCountHandler = useCallback(() => console.log("decreaseCount"), []);
-  const increaseCountHandler = useCallback(() => console.log("increaseCount"), []);
+  const dispatch = useAppDispatch();
+
+  const buyHandler = () => dispatch(addItem(id));
+  const decreaseCountHandler = () => dispatch(decreaseQuantity(id));
+  const increaseCountHandler = () => dispatch(increaseQuantity(id));
 
   return (
     <StyledProductContentWrapper>
