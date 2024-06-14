@@ -1,12 +1,16 @@
 import { PrimaryButton } from "@/components/entities/PrimaryButton";
 import { Title } from "@/components/entities/Title";
-import { useScrollIntoView } from "@/components/hooks";
-import { useDebounce, useGetProductsInCart } from "@/hooks";
+import { useScrollIntoView, useDebounce, useGetProductsInCart } from "@/hooks";
 import { useGetProductsWithFilterQuery } from "@/store/api/productsApi";
 import { useRef, useState } from "react";
 import { LoadingWrapper } from "../LoadingWrapper";
 import { SearchBar } from "../SearchBar";
-import { StyledCatalog, StyledCatalogList, StyledCatalogShowMore } from "./Catalog.styles";
+import {
+  StyledCatalog,
+  StyledCatalogList,
+  StyledCatalogShowMore,
+  StyledSearchBarWrapper,
+} from "./Catalog.styles";
 import { CatalogItem } from "./CatalogItem";
 
 const limit = import.meta.env.VITE_CATALOG_LIMIT;
@@ -40,7 +44,9 @@ export const Catalog = () => {
       <Title id="Catalog" ref={catalogRef}>
         Catalog
       </Title>
-      <SearchBar searchHandler={searchSubmitHandler} />
+      <StyledSearchBarWrapper>
+        <SearchBar searchHandler={searchSubmitHandler} />
+      </StyledSearchBarWrapper>
       <LoadingWrapper isLoading={isLoading} error={error} isEmpty={catalogData?.total === 0}>
         <StyledCatalog>
           <StyledCatalogList>

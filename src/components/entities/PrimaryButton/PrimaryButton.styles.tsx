@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledButton = styled.button<{ $disabled?: boolean }>`
+export const StyledButton = styled.button<{ disabled?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,17 +8,24 @@ export const StyledButton = styled.button<{ $disabled?: boolean }>`
   background-color: ${({ theme }) => theme.colors.buttons.primary};
   font-size: 1.6rem;
   color: ${({ theme }) => theme.colors.text.light};
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: ${({ theme }) => theme.colors.buttons.hover};
   }
 
-  &:active {
+  &:active:not(:disabled) {
     font-size: 1.5rem;
   }
 
-  ${({ $disabled, theme }) => $disabled && `background-color: ${theme.colors.text.grayDark}`};
+  ${({ disabled, theme }) =>
+    disabled &&
+    `
+      background-color: ${theme.colors.text.grayDark};
+      cursor: auto;
+  `};
 `;
 
 export const StyledPrimaryButton = styled(StyledButton)`

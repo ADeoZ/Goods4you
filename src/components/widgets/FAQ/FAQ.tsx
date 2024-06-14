@@ -1,5 +1,5 @@
 import { Title } from "@/components/entities/Title";
-import { useScrollIntoView } from "@/components/hooks";
+import { useScrollIntoView } from "@/hooks";
 import { useAppSelector } from "@/store";
 import { useRef } from "react";
 import { StyledFaqList, StyledFaqSection } from "./FAQ.styles";

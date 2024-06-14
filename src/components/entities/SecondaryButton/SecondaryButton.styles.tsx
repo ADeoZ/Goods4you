@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { StyledButton } from "../PrimaryButton";
 
 export const StyledSecondaryButton = styled(StyledButton)`
+  min-width: 48px;
   aspect-ratio: 1;
   padding: 0;
   background-repeat: no-repeat;
