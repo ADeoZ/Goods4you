@@ -1,15 +1,13 @@
-import styled from "styled-components";
-import { GlobalStyle } from "./styles/GlobalStyle";
-
-const P = styled.p`
-  font-size: 2.4rem;
-`;
+import { RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { router } from "./router";
+import { GlobalStyle, mainTheme } from "./styles";
 
 export const App = () => {
   return (
-    <>
+    <ThemeProvider theme={mainTheme}>
       <GlobalStyle />
-      <P>Hello!</P>
-    </>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   );
 };
