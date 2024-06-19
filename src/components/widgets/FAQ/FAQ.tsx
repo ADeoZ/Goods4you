@@ -1,12 +1,13 @@
 import { Title } from "@/components/entities/Title";
 import { useScrollIntoView } from "@/hooks";
 import { useAppSelector } from "@/store";
+import { selectFaqList } from "@/store/slices/faqSlice";
 import { useRef } from "react";
 import { StyledFaqList, StyledFaqSection } from "./FAQ.styles";
 import { FAQItem } from "./FAQItem";
 
 export const FAQ = () => {
-  const faqList = useAppSelector((state) => state.faq.list);
+  const faqList = useAppSelector(selectFaqList);
 
   const titleRef = useRef<HTMLElement>(null);
   useScrollIntoView(titleRef);

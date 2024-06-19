@@ -19,3 +19,7 @@ export const StyledLoadingStatus = styled.span`
     }
   }
 `;
+
+export const StyledErrorStatus = styled.span`
+  color: ${({ theme }) => theme.colors.text.error};
+`;

@@ -17,6 +17,7 @@ export const mainTheme = {
       dark: "#444B58",
       grayLight: "#B2B5BB",
       grayDark: "#C4C4C4",
+      error: "#E10000",
     },
     borders: {
       gray: "#D9D9D9",

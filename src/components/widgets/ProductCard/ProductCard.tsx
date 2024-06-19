@@ -1,13 +1,14 @@
 import { Title } from "@/components/entities/Title";
+import { useGetProductByIdQuery } from "@/store/api/productsApi";
+import { skipToken } from "@reduxjs/toolkit/query";
+import { LoadingWrapper } from "../LoadingWrapper";
 import { StyledProductCard, StyledProductCardWrapper } from "./ProductCard.styles";
 import { ProductCardProps } from "./ProductCard.types";
 import { ProductCardImages } from "./ProductCardImages";
 import { ProductContent } from "./ProductContent";
-import { useGetProductByIdQuery } from "@/store/api/productsApi";
-import { LoadingWrapper } from "../LoadingWrapper";
 
 export const ProductCard = ({ id }: ProductCardProps) => {
-  const { data: product, isLoading, error } = useGetProductByIdQuery(id ?? "");
+  const { data: product, isLoading, error } = useGetProductByIdQuery(id ?? skipToken);
 
   return (
     <LoadingWrapper isLoading={isLoading} error={error} isEmpty={!product}>

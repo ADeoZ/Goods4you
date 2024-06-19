@@ -1,4 +1,4 @@
-import { CartProduct } from "@/models/cart";
+import { CartProduct } from "@/models";
 import { useAppSelector } from "@/store";
 import { getProducts } from "@/store/slices/cartSlice";
 import { useMemo } from "react";

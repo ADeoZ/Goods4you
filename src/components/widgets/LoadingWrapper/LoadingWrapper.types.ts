@@ -5,5 +5,5 @@ export type LoadingWrapperProps = {
   isLoading: boolean;
   error?: FetchBaseQueryError | SerializedError;
   isEmpty?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };

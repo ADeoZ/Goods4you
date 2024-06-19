@@ -1,19 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import { cartApi } from "./api/cartApi";
-import { productsApi } from "./api/productsApi";
-import cartReducer from "./slices/cartSlice";
-import faqReducer from "./slices/faqSlice";
+import { authApi, productsApi, cartApi } from "./api";
+import { STORAGE_KEY_TOKEN, loadFromLocalStorage } from "./utils/localStorageWorkers";
+import { userSlice, faqSlice, cartSlice } from "./slices";
 
 export const store = configureStore({
   reducer: {
+    [authApi.reducerPath]: authApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
-    faq: faqReducer,
-    cart: cartReducer,
+    [userSlice.name]: userSlice.reducer,
+    [faqSlice.name]: faqSlice.reducer,
+    [cartSlice.name]: cartSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(productsApi.middleware, cartApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware, productsApi.middleware, cartApi.middleware),
+  preloadedState: {
+    user: { ...userSlice.getInitialState(), token: loadFromLocalStorage(STORAGE_KEY_TOKEN) },
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

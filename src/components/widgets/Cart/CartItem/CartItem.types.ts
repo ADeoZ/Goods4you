@@ -1,3 +1,3 @@
-import { CartProduct } from "@/models/cart";
+import { CartProduct } from "@/models";
 
 export type CartItemProps = CartProduct;

@@ -17,7 +17,7 @@ export const Cart = () => {
   return (
     <StyledCart>
       <StyledCartList>
-        <LoadingWrapper isLoading={isLoading} error={error}>
+        <LoadingWrapper isLoading={isLoading} error={error} isEmpty={cartList.products.length === 0}>
           {cartList.products.length > 0 &&
             cartList.products.map((cartItem) => <CartItem key={cartItem.id} {...cartItem} />)}
         </LoadingWrapper>

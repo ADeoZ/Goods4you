@@ -25,5 +25,3 @@ export const faqSlice = createSlice({
 });
 
 export const selectFaqList = (state: RootState) => state.faq.list;
-
-export default faqSlice.reducer;

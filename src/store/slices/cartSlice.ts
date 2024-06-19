@@ -1,4 +1,4 @@
-import { CartList } from "@/models/cart";
+import { CartList } from "@/models";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { cartApi } from "../api/cartApi";
@@ -45,5 +45,3 @@ export const getCart = (state: RootState) => state.cart;
 export const getProducts = (state: RootState) => state.cart.data.products;
 
 export const { addItem, decreaseQuantity, increaseQuantity, deleteItem } = cartSlice.actions;
-
-export default cartSlice.reducer;
