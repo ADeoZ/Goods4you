@@ -1,19 +1,39 @@
-import { CartList, CartListResponse } from "@/models";
+import { CartList, CartListResponse, CartProduct } from "@/models";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithFreshToken } from "./utils/baseQuery";
-
-const userId = import.meta.env.VITE_USER_ID;
 
 export const cartApi = createApi({
   reducerPath: "cartApi",
   baseQuery: baseQueryWithFreshToken,
-  keepUnusedDataFor: 300,
   endpoints: (builder) => ({
-    getCartsByUser: builder.query<CartList, void>({
-      query: () => `carts/user/${userId}`,
+    getCartsByUser: builder.query<CartList, string>({
+      query: (userId: string) => `carts/user/${userId}`,
+      keepUnusedDataFor: 300,
       transformResponse: (response: CartListResponse) => response.carts[0],
+    }),
+    updateCart: builder.mutation<
+      CartList,
+      Pick<CartList, "id"> & { products: Pick<CartProduct, "id" | "quantity">[] }
+    >({
+      query: ({ id, products }) => ({
+        url: `carts/${id}`,
+        method: "PUT",
+        body: { merge: true, products },
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data: updatedCart } = await queryFulfilled;
+          dispatch(
+            cartApi.util.updateQueryData("getCartsByUser", updatedCart.userId, (draft) => {
+              Object.assign(draft, updatedCart);
+            })
+          );
+        } catch (e) {
+          console.error(e);
+        }
+      },
     }),
   }),
 });
 
-export const { useGetCartsByUserQuery } = cartApi;
+export const { useGetCartsByUserQuery, useUpdateCartMutation } = cartApi;

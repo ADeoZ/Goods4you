@@ -1,3 +1,3 @@
 export type LocationStateWithRedirect = {
-  redirectTo: { pathname: string };
+  from: { pathname: string };
 };

@@ -1,7 +1,4 @@
 export { SecondaryButton } from "./SecondaryButton";
 
-export {
-  StyledBuyButton as BuyButton,
-  StyledMinusButton as MinusButton,
-  StyledPlusButton as PlusButton,
-} from "./SecondaryButton.styles";
+export { BuyButton } from "./BuyButton";
+export { StyledMinusButton as MinusButton, StyledPlusButton as PlusButton } from "./SecondaryButton.styles";

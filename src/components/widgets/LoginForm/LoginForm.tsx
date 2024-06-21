@@ -1,17 +1,13 @@
 import { Input } from "@/components/entities/Input";
 import { PrimaryButton } from "@/components/entities/PrimaryButton";
 import { Login } from "@/models";
-import { LocationStateWithRedirect } from "@/router";
 import { useLoginMutation } from "@/store/api/authApi";
 import { useState } from "react";
-import { Location, useLocation, useNavigate } from "react-router-dom";
 import { StyledLoginError, StyledLoginForm } from "./LoginForm.styles";
 
 export const LoginForm = () => {
   const [loginValues, setLoginValues] = useState<Login>({ username: "", password: "" });
   const [auth, { isLoading, isError }] = useLoginMutation();
-  const navigate = useNavigate();
-  const location: Location<LocationStateWithRedirect> = useLocation();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = event;
@@ -24,8 +20,6 @@ export const LoginForm = () => {
 
     try {
       await auth(loginValues).unwrap();
-      const from = location.state?.redirectTo.pathname || "/";
-      navigate(from);
     } catch (e) {
       console.error(e);
     }

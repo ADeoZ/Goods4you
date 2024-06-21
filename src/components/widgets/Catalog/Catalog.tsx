@@ -1,6 +1,6 @@
 import { PrimaryButton } from "@/components/entities/PrimaryButton";
 import { Title } from "@/components/entities/Title";
-import { useScrollIntoView, useDebounce, useGetProductsInCart } from "@/hooks";
+import { useDebounce, useGetProductsInCart, useScrollIntoView } from "@/hooks";
 import { useGetProductsWithFilterQuery } from "@/store/api/productsApi";
 import { useRef, useState } from "react";
 import { LoadingWrapper } from "../LoadingWrapper";
@@ -51,7 +51,7 @@ export const Catalog = () => {
         <StyledCatalog>
           <StyledCatalogList>
             {catalogData?.products.map((item) => (
-              <CatalogItem key={item.id} {...item} quantityInCart={productsInCart.get(item.id) ?? 0} />
+              <CatalogItem key={item.id} {...item} quantityInCart={productsInCart.get(item.id)} />
             ))}
           </StyledCatalogList>
           {catalogData && (page + 1) * limit <= catalogData.total && (

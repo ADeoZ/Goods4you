@@ -1,6 +1,8 @@
 export type ItemCountControllersProps = {
   currentCount: number;
-  decreaseCountHandler: () => void;
-  increaseCountHandler: () => void;
+  decreaseCountHandler: (() => void) | null;
+  increaseCountHandler: (() => void) | null;
+  isLoading?: boolean;
+  isError?: boolean;
   largeSize?: boolean;
 };

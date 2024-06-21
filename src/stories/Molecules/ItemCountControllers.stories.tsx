@@ -12,6 +12,8 @@ const meta: Meta<typeof ItemCountControllers> = {
     currentCount: { description: "Current value" },
     decreaseCountHandler: { description: "Decrease value handler" },
     increaseCountHandler: { description: "Increase value handler" },
+    isLoading: { description: "Loading process" },
+    isError: { description: "Error case" },
     largeSize: { description: "Large block size trigger" },
   },
   tags: ["autodocs"],

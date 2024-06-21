@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { authApi, productsApi, cartApi } from "./api";
 import { STORAGE_KEY_TOKEN, loadFromLocalStorage } from "./utils/localStorageWorkers";
-import { userSlice, faqSlice, cartSlice } from "./slices";
+import { userSlice, faqSlice } from "./slices";
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +11,6 @@ export const store = configureStore({
     [cartApi.reducerPath]: cartApi.reducer,
     [userSlice.name]: userSlice.reducer,
     [faqSlice.name]: faqSlice.reducer,
-    [cartSlice.name]: cartSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authApi.middleware, productsApi.middleware, cartApi.middleware),

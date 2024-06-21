@@ -6,7 +6,7 @@ export const StyledControllerWrapper = styled.div<{ $large?: boolean }>`
   display: flex;
 `;
 
-export const StyledItemValue = styled.div`
+export const StyledItemValue = styled.div<{ $error?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,4 +16,17 @@ export const StyledItemValue = styled.div`
   border-radius: 4px;
   background-color: ${({ theme }) => theme.colors.inputs.bg};
   font-size: 1.4rem;
+
+  ${({ $error }) =>
+    $error &&
+    `
+      animation: colorBlink .5s linear infinite;    
+    `}
+
+  @keyframes colorBlink {
+    50% {
+      background-color: ${({ theme }) => theme.colors.text.error};
+      color: ${({ theme }) => theme.colors.text.light};
+    }
+  }
 `;

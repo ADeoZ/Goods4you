@@ -2,14 +2,17 @@ import { Title } from "@/components/entities/Title";
 import { Header } from "@/components/widgets/Header";
 import { LoginForm } from "@/components/widgets/LoginForm";
 import { MainWrapper } from "@/components/widgets/MainWrapper";
-import { StyledLoginPageWrapper } from "./LoginPage.styles";
+import { LocationStateWithRedirect } from "@/router";
 import { useAppSelector } from "@/store";
 import { getUser } from "@/store/slices/userSlice";
-import { Navigate } from "react-router-dom";
+import { Location, Navigate, useLocation } from "react-router-dom";
+import { StyledLoginPageWrapper } from "./LoginPage.styles";
 
 export const LoginPage = () => {
   const { token } = useAppSelector(getUser);
-  if (token) return <Navigate to="/" replace />;
+  const location: Location<LocationStateWithRedirect> = useLocation();
+  const from = location.state?.from.pathname || "/";
+  if (token) return <Navigate to={from} replace />;
 
   return (
     <>

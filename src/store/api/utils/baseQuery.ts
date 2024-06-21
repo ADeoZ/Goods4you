@@ -1,15 +1,13 @@
-import { RootState } from "@/store";
 import { logout } from "@/store/slices/userSlice";
+import { STORAGE_KEY_TOKEN, loadFromLocalStorage } from "@/store/utils/localStorageWorkers";
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from "@reduxjs/toolkit/query";
 
 const baseQueryWithToken = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_URL,
-  prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).user.token;
-    if (token) {
-      headers.set("Content-Type", "application/json");
-      headers.set("Authorization", `Bearer ${token}`);
-    }
+  prepareHeaders: (headers) => {
+    const token = loadFromLocalStorage(STORAGE_KEY_TOKEN);
+    if (token) headers.set("Authorization", `Bearer ${token}`);
+
     return headers;
   },
 });

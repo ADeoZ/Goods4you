@@ -1,10 +1,14 @@
 import { CartProduct } from "@/models";
 import { useAppSelector } from "@/store";
-import { getProducts } from "@/store/slices/cartSlice";
+import { cartApi } from "@/store/api";
+import { getUser } from "@/store/slices/userSlice";
 import { useMemo } from "react";
 
 export const useGetProductsInCart = (): Map<CartProduct["id"], CartProduct["quantity"]> => {
-  const cartProducts = useAppSelector(getProducts);
+  const user = useAppSelector(getUser);
+  const cartProducts = cartApi.endpoints.getCartsByUser.useQueryState(user.id, {
+    selectFromResult: (state) => state.data?.products ?? [],
+  });
   const productsInCart = useMemo(
     () =>
       cartProducts.reduce((map: Map<CartProduct["id"], CartProduct["quantity"]>, { id, quantity }) => {
