@@ -19,6 +19,18 @@ $ npm install
 $ npm run dev
 ```
 
+Запуск Storybook:
+
+```
+$ npm run storybook
+```
+
+Запуск тестов:
+
+```
+$ npm run test
+```
+
 
 #### Требования
 
