@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const StyledSearchBarWrapper = styled.div`
+  margin-top: 43px;
+`;
+
 export const StyledCatalog = styled.section`
   padding: 40px 0 0;
 `;

@@ -14,6 +14,7 @@ export const StyledCartItem = styled.li`
 
   @media (max-width: 800px) {
     height: auto;
+    justify-content: center;
   }
 
   @media (max-width: 600px) {
@@ -37,6 +38,7 @@ export const StyledCartItemLabel = styled.div`
   @media (max-width: 800px) {
     height: auto;
     flex-wrap: wrap;
+    justify-content: center;
   }
 `;
 

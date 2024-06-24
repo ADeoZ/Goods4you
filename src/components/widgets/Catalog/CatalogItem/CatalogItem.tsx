@@ -1,32 +1,34 @@
-import { BuyButton } from "@/components/entities/SecondaryButton";
 import { ItemDescription } from "@/components/entities/ItemDescription";
+import { BuyButton } from "@/components/entities/SecondaryButton";
+import { useAppDispatch } from "@/store";
+import { addItem, decreaseQuantity, increaseQuantity } from "@/store/slices/cartSlice";
+import { ItemCountControllers } from "@components/entities/ItemCountControllers";
+import { memo } from "react";
 import { StyledCatalogItem, StyledItemContent, StyledItemControllers } from "./CatalogItem.styles";
 import { CatalogItemProps } from "./CatalogItem.types";
 import { CatalogItemImage } from "./CatalogItemImage";
-import { useCallback, useState } from "react";
-import { ItemCountControllers } from "../../../entities/ItemCountControllers";
 
-export const CatalogItem = (props: CatalogItemProps) => {
-  const { id, title, price, image } = props;
+export const CatalogItem = memo(function CatalogItem(props: CatalogItemProps) {
+  const { id, title, price, thumbnail, quantityInCart = 0 } = props;
+  const dispatch = useAppDispatch();
 
-  const [countInCart, setCountInCart] = useState<number>(0);
+  const buyHandler = () => dispatch(addItem(id));
+  const decreaseCountHandler = () => dispatch(decreaseQuantity(id));
+  const increaseCountHandler = () => dispatch(increaseQuantity(id));
 
-  const decreaseCountHandler = useCallback(() => setCountInCart((prev) => prev - 1), []);
-  const increaseCountHandler = useCallback(() => setCountInCart((prev) => prev + 1), []);
-
-  const link = `sneakers/${id}`;
+  const link = `/product/${id}`;
 
   return (
     <StyledCatalogItem>
-      <CatalogItemImage link={link} image={image} />
+      <CatalogItemImage image={thumbnail} link={link} alt={title} />
       <StyledItemContent>
         <ItemDescription link={link} title={title} price={price} />
         <StyledItemControllers>
-          {countInCart === 0 ? (
-            <BuyButton aria-label="Add to Cart" onClick={() => setCountInCart(1)} />
+          {quantityInCart === 0 ? (
+            <BuyButton aria-label="Add to Cart" onClick={buyHandler} />
           ) : (
             <ItemCountControllers
-              currentCount={countInCart}
+              currentCount={quantityInCart}
               decreaseCountHandler={decreaseCountHandler}
               increaseCountHandler={increaseCountHandler}
             />
@@ -35,4 +37,4 @@ export const CatalogItem = (props: CatalogItemProps) => {
       </StyledItemContent>
     </StyledCatalogItem>
   );
-};
+});

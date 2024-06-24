@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const StyledSearchBar = styled.form`
   display: flex;
   gap: 20px;
-  margin-top: 43px;
   @media (max-width: 600px) {
     flex-direction: column;
     align-items: center;

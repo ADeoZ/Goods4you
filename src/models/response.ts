@@ -1,6 +1,12 @@
-export type ListResponse<T> = {
+import { CartList } from "./cart";
+import { Product } from "./product";
+
+export type ListResponse = {
   total: number;
-  page: number;
+  skip: number;
   limit: number;
-  list: T[];
 };
+
+export type ProductsListResponse = ListResponse & { products: Product[] };
+
+export type CartListResponse = ListResponse & { carts: CartList[] };

@@ -1,8 +1,13 @@
-import { StyledImg } from "@/components/entities/Picture";
 import { StyledItemTitle } from "@/components/entities/ItemDescription/ItemDescription.styles";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { StyledItemContent } from "../CatalogItem.styles";
+
+export const StyledItemImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 export const StyledItemImageWrapper = styled(Link)`
   display: block;
@@ -30,7 +35,7 @@ export const StyledItemImageWrapper = styled(Link)`
     text-decoration: underline;
   }
 
-  & ${StyledImg} {
+  & ${StyledItemImage} {
     border-radius: 4px;
   }
 `;

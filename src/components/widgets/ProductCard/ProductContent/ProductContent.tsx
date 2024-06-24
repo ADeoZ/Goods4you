@@ -2,7 +2,9 @@ import { Field } from "@/components/entities/Field";
 import { ItemCountControllers } from "@/components/entities/ItemCountControllers";
 import { PrimaryButton } from "@/components/entities/PrimaryButton";
 import { Rating } from "@/components/entities/Rating";
-import { useCallback, useState } from "react";
+import { useGetProductsInCart } from "@/hooks";
+import { useAppDispatch } from "@/store";
+import { addItem, decreaseQuantity, increaseQuantity } from "@/store/slices/cartSlice";
 import {
   StyledProductContent,
   StyledProductContentWrapper,
@@ -13,20 +15,25 @@ import {
 import { ProductContentProps } from "./ProductContent.types";
 
 export const ProductContent = ({
+  id,
   title,
   sku,
   rating,
   price,
-  discount,
+  discountPercentage,
   stock,
   brand,
   category,
   description,
 }: ProductContentProps) => {
-  const [countInCart, setCountInCart] = useState<number>(0);
+  const productsInCart = useGetProductsInCart();
+  const countInCart = productsInCart.get(id) ?? 0;
 
-  const decreaseCountHandler = useCallback(() => setCountInCart((prev) => prev - 1), []);
-  const increaseCountHandler = useCallback(() => setCountInCart((prev) => prev + 1), []);
+  const dispatch = useAppDispatch();
+
+  const buyHandler = () => dispatch(addItem(id));
+  const decreaseCountHandler = () => dispatch(decreaseQuantity(id));
+  const increaseCountHandler = () => dispatch(increaseQuantity(id));
 
   return (
     <StyledProductContentWrapper>
@@ -37,8 +44,8 @@ export const ProductContent = ({
       <StyledProductContent>
         <Field label="Rating" value={<Rating value={rating} />} />
         <Field label="Base Price" value={`${price}$`} />
-        <Field label="Discount percentage" value={`${discount}%`} />
-        <Field label="Discount price" value={`${price * (1 - discount / 100)}$`} />
+        <Field label="Discount percentage" value={`${discountPercentage}%`} />
+        <Field label="Discount price" value={`${(price * (1 - discountPercentage / 100)).toFixed(2)}$`} />
         <Field label="Stock" value={`${stock}`} />
         <Field label="Brand" value={brand} />
         <Field label="Category" value={category} />
@@ -46,7 +53,7 @@ export const ProductContent = ({
       </StyledProductContent>
       <StyledProductControllers>
         {countInCart === 0 ? (
-          <PrimaryButton onClick={() => setCountInCart(1)}>Add to cart</PrimaryButton>
+          <PrimaryButton onClick={buyHandler}>Add to cart</PrimaryButton>
         ) : (
           <ItemCountControllers
             currentCount={countInCart}

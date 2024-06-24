@@ -1,1 +1,1 @@
-export type MenuCartProps = { count: number };
+export type MenuCartProps = { count?: number };

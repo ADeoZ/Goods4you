@@ -4,27 +4,13 @@ export type Product = {
   title: string;
   price: number;
   rating: number;
-  discount: number;
+  discountPercentage: number;
   stock: number;
   brand: string;
   category: string;
   description: string;
-  images: {
-    mainImage: ProductMainImage;
-    detailsImages: ProductDetailsImage[];
-  };
+  images: ProductImage[];
+  thumbnail: string;
 };
 
-export type ProductMainImage = {
-  src: string;
-  srcSmall: string;
-  alt: string;
-};
-
-export type ProductDetailsImage = {
-  id: string;
-  previewSrc: string;
-  fullSrc: string;
-  fullSrcSmall: string;
-  alt: string;
-};
+export type ProductImage = string;

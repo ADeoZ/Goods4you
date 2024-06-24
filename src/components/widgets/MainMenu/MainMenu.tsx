@@ -1,10 +1,13 @@
-import { getCartItemsCount } from "@/store";
+import { useGetCartsByUserQuery } from "@/store/api/cartApi";
 import { StyledMenu, StyledMenuLink } from "./MainMenu.styles";
 import { MainMenuProps } from "./MainMenu.types";
 import { MenuCart } from "./MenuCart/MenuCart";
+import { useAppSelector } from "@/store";
+import { getCart } from "@/store/slices/cartSlice";
 
 export const MainMenu = ({ showCart = false }: MainMenuProps) => {
-  const cartItemsCount = getCartItemsCount();
+  useGetCartsByUserQuery();
+  const { data: cart } = useAppSelector(getCart);
 
   return (
     <nav>
@@ -17,9 +20,9 @@ export const MainMenu = ({ showCart = false }: MainMenuProps) => {
         </li>
         {showCart && (
           <li>
-            <StyledMenuLink to="/cart" aria-label={`${cartItemsCount} item in Cart`}>
+            <StyledMenuLink to="/cart" aria-label={`${cart.totalQuantity} item in Cart`}>
               Cart
-              <MenuCart count={cartItemsCount} />
+              <MenuCart count={cart.totalQuantity} />
             </StyledMenuLink>
           </li>
         )}

@@ -1,6 +1,8 @@
-import { ProductDetailsImage } from "@/models";
+import { ProductImage } from "@/models";
 
-export type ProductCardImagePreviewProps = ProductDetailsImage & {
-  selectHandler: (image: ProductDetailsImage) => void;
+export type ProductCardImagePreviewProps = {
+  src: ProductImage;
+  alt: string;
+  selectHandler: (image: ProductImage) => void;
   selected?: boolean;
 };
