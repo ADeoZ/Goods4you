@@ -6,7 +6,7 @@ import { useState } from "react";
 import { StyledLoginError, StyledLoginForm } from "./LoginForm.styles";
 
 export const LoginForm = () => {
-  const [loginValues, setLoginValues] = useState<Login>({ username: "", password: "" });
+  const [loginValues, setLoginValues] = useState<Login>({ username: "carterb", password: "carterbpass" });
   const [auth, { isLoading, isError }] = useLoginMutation();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
