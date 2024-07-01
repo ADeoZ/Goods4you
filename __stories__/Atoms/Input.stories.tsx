@@ -1,4 +1,4 @@
-import { Input } from "@/components/entities/Input/Input";
+import { Input } from "@/components/entities/Input";
 import { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 

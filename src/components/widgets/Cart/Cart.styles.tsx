@@ -18,6 +18,7 @@ export const StyledCart = styled.section`
 export const StyledCartList = styled.ul`
   width: 100%;
   max-width: 780px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 43px;

@@ -6,6 +6,7 @@ export const StyledInput = styled.input`
   padding: 2.1rem 1.6rem;
   background-color: ${({ theme }) => theme.colors.inputs.bg};
   border-width: 0;
+  border-radius: 4px;
   font-size: 1.6rem;
 
   &::placeholder {

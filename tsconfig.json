@@ -40,6 +40,8 @@
   },
   "include": [
     "src",
+    "__tests__",
+    "__stories__",
   ],
   "references": [
     {

@@ -1,18 +1,39 @@
-import { CartList } from "@/models/cart";
-import { CartListResponse } from "@/models/response";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-const userId = import.meta.env.VITE_USER_ID;
+import { CartList, CartListResponse, CartProduct } from "@/models";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithFreshToken } from "./utils/baseQuery";
 
 export const cartApi = createApi({
   reducerPath: "cartApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/carts/" }),
+  baseQuery: baseQueryWithFreshToken,
   endpoints: (builder) => ({
-    getCartsByUser: builder.query<CartList, void>({
-      query: () => `user/${userId}`,
+    getCartsByUser: builder.query<CartList, string>({
+      query: (userId: string) => `carts/user/${userId}`,
+      keepUnusedDataFor: 300,
       transformResponse: (response: CartListResponse) => response.carts[0],
+    }),
+    updateCart: builder.mutation<
+      CartList,
+      Pick<CartList, "id"> & { products: Pick<CartProduct, "id" | "quantity">[] }
+    >({
+      query: ({ id, products }) => ({
+        url: `carts/${id}`,
+        method: "PUT",
+        body: { merge: true, products },
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data: updatedCart } = await queryFulfilled;
+          dispatch(
+            cartApi.util.updateQueryData("getCartsByUser", updatedCart.userId, (draft) => {
+              Object.assign(draft, updatedCart);
+            })
+          );
+        } catch (e) {
+          console.error(e);
+        }
+      },
     }),
   }),
 });
 
-export const { useGetCartsByUserQuery } = cartApi;
+export const { useGetCartsByUserQuery, useUpdateCartMutation } = cartApi;

@@ -1,7 +1,6 @@
 import { ItemDescription } from "@/components/entities/ItemDescription";
 import { BuyButton } from "@/components/entities/SecondaryButton";
-import { useAppDispatch } from "@/store";
-import { addItem, decreaseQuantity, increaseQuantity } from "@/store/slices/cartSlice";
+import { useCartItemCountControllers } from "@/hooks";
 import { ItemCountControllers } from "@components/entities/ItemCountControllers";
 import { memo } from "react";
 import { StyledCatalogItem, StyledItemContent, StyledItemControllers } from "./CatalogItem.styles";
@@ -9,12 +8,12 @@ import { CatalogItemProps } from "./CatalogItem.types";
 import { CatalogItemImage } from "./CatalogItemImage";
 
 export const CatalogItem = memo(function CatalogItem(props: CatalogItemProps) {
-  const { id, title, price, thumbnail, quantityInCart = 0 } = props;
-  const dispatch = useAppDispatch();
+  const { id, title, price, thumbnail, stock, quantityInCart = 0 } = props;
 
-  const buyHandler = () => dispatch(addItem(id));
-  const decreaseCountHandler = () => dispatch(decreaseQuantity(id));
-  const increaseCountHandler = () => dispatch(increaseQuantity(id));
+  const { buyHandler, decreaseHandler, increaseHandler, isLoading, isError } = useCartItemCountControllers(
+    id,
+    quantityInCart
+  );
 
   const link = `/product/${id}`;
 
@@ -25,12 +24,20 @@ export const CatalogItem = memo(function CatalogItem(props: CatalogItemProps) {
         <ItemDescription link={link} title={title} price={price} />
         <StyledItemControllers>
           {quantityInCart === 0 ? (
-            <BuyButton aria-label="Add to Cart" onClick={buyHandler} />
+            <BuyButton
+              aria-label="Add to Cart"
+              onClick={buyHandler}
+              disabled={stock === 0}
+              isLoading={isLoading}
+              isError={isError}
+            />
           ) : (
             <ItemCountControllers
               currentCount={quantityInCart}
-              decreaseCountHandler={decreaseCountHandler}
-              increaseCountHandler={increaseCountHandler}
+              decreaseCountHandler={decreaseHandler}
+              increaseCountHandler={quantityInCart < stock ? increaseHandler : null}
+              isLoading={isLoading}
+              isError={isError}
             />
           )}
         </StyledItemControllers>

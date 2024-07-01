@@ -1,7 +1,6 @@
 import { ItemCountControllers } from "@/components/entities/ItemCountControllers";
 import { ItemDescription } from "@/components/entities/ItemDescription";
-import { useAppDispatch } from "@/store";
-import { decreaseQuantity, deleteItem, increaseQuantity } from "@/store/slices/cartSlice";
+import { useCartItemCountControllers } from "@/hooks";
 import { memo } from "react";
 import {
   StyledCartControllers,
@@ -14,11 +13,10 @@ import {
 import { CartItemProps } from "./CartItem.types";
 
 export const CartItem = memo(function CartItem({ id, title, price, thumbnail, quantity }: CartItemProps) {
-  const dispatch = useAppDispatch();
-
-  const decreaseHandler = () => dispatch(decreaseQuantity(id));
-  const increaseHandler = () => dispatch(increaseQuantity(id));
-  const deleteHandler = () => dispatch(deleteItem(id));
+  const { decreaseHandler, increaseHandler, deleteHandler, isLoading, isError } = useCartItemCountControllers(
+    id,
+    quantity
+  );
 
   const link = `/product/${id}`;
 
@@ -35,6 +33,8 @@ export const CartItem = memo(function CartItem({ id, title, price, thumbnail, qu
           currentCount={quantity}
           decreaseCountHandler={decreaseHandler}
           increaseCountHandler={increaseHandler}
+          isLoading={isLoading}
+          isError={isError}
         />
         <StyledCartItemDelete onClick={deleteHandler}>Delete</StyledCartItemDelete>
       </StyledCartControllers>

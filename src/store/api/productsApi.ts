@@ -1,15 +1,16 @@
 import { Product, ProductsListResponse } from "@/models";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithFreshToken } from "./utils/baseQuery";
 
 export const productsApi = createApi({
   reducerPath: "productsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://dummyjson.com/products/" }),
+  baseQuery: baseQueryWithFreshToken,
   endpoints: (builder) => ({
     getProductsWithFilter: builder.query<
       ProductsListResponse,
       { search: string; skip: number; limit: number }
     >({
-      query: ({ search, skip, limit }) => `search?q=${search}&skip=${skip}&limit=${limit}`,
+      query: ({ search, skip, limit }) => `products/search?q=${search}&skip=${skip}&limit=${limit}`,
       serializeQueryArgs: ({ endpointName }) => endpointName,
       merge: (currentCache, newItems) => {
         if (newItems.skip > 0) {
@@ -23,7 +24,7 @@ export const productsApi = createApi({
         return currentArg?.search !== previousArg?.search || currentArg?.skip !== previousArg?.skip;
       },
     }),
-    getProductById: builder.query<Product, string>({ query: (id: string) => `${id}` }),
+    getProductById: builder.query<Product, string>({ query: (id: string) => `products/${id}` }),
   }),
 });
 
